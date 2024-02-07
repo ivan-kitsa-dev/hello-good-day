@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" href="./style.css" rel="stylesheet">
+    <title>Something</title>
+</head>
+<body>
+    <section>
+        <div class="circle-xl"></div>
+        <div class="circle-md"></div>
+        <nav id="links">
+            <a href="#Hello">Hello</a>
+            <a href="#Good">Good</a>
+            <a href="#Day">Day</a>
+        </nav>
+        <h1 id="preview"></h1>
+    </section>
+    <script type="text/javascript">
+        const halfW = document.body.offsetWidth / 2;
+        const halfH = document.body.offsetHeight / 2;
+        const range = halfH;
+
+        const previewNode = document.querySelector('#preview');
+        previewNode.style.transform = 'translate(5%, 0)';
+
+        let translateX = '0px';
+        let translateY = '0px';
+
+        function move(e) {
+            if ((halfW - e.x) < range && (halfW - e.x) > -range) {
+                translateX = `calc(${(halfW - e.x) / 5}px)`;
+            }
+
+            if ((halfH - e.y) < range && (halfH - e.y) > -range) {
+                translateY = `calc(${(halfH - e.y) / 5}px)`;
+            }
+            previewNode.style.transform = `translate3d(${translateX}, ${translateY}, 0)`;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            move(e);
+        });
+    </script>
+</body>
+</html>
