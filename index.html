@@ -8,7 +8,7 @@
     <link type="text/css" href="./style.css" rel="stylesheet">
     <title>Something</title>
 </head>
-<body>
+<body isTouch="true">
     <section>
         <div class="circle-xl"></div>
         <div class="circle-md"></div>
@@ -20,30 +20,35 @@
         <h1 id="preview"></h1>
     </section>
     <script type="text/javascript">
-        const halfW = document.body.offsetWidth / 2;
-        const halfH = document.body.offsetHeight / 2;
-        const range = halfH;
+        const isTouch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isTouch) {
+            document.body.setAttribute('isTouch', 'true');
+        } else {
+            const halfW = document.body.offsetWidth / 2;
+            const halfH = document.body.offsetHeight / 2;
+            const range = halfH;
 
-        const previewNode = document.querySelector('#preview');
-        previewNode.style.transform = 'translate(5%, 0)';
+            const previewNode = document.querySelector('#preview');
+            previewNode.style.transform = 'translate(5%, 0)';
 
-        let translateX = '0px';
-        let translateY = '0px';
+            let translateX = '0px';
+            let translateY = '0px';
 
-        function move(e) {
-            if ((halfW - e.x) < range && (halfW - e.x) > -range) {
-                translateX = `calc(${(halfW - e.x) / 5}px)`;
+            function move(e) {
+                if ((halfW - e.x) < range && (halfW - e.x) > -range) {
+                    translateX = `calc(${(halfW - e.x) / 5}px)`;
+                }
+
+                if ((halfH - e.y) < range && (halfH - e.y) > -range) {
+                    translateY = `calc(${(halfH - e.y) / 5}px)`;
+                }
+                previewNode.style.transform = `translate3d(${translateX}, ${translateY}, 0)`;
             }
 
-            if ((halfH - e.y) < range && (halfH - e.y) > -range) {
-                translateY = `calc(${(halfH - e.y) / 5}px)`;
-            }
-            previewNode.style.transform = `translate3d(${translateX}, ${translateY}, 0)`;
+            document.addEventListener('mousemove', (e) => {
+                move(e);
+            });
         }
-
-        document.addEventListener('mousemove', (e) => {
-            move(e);
-        });
     </script>
 </body>
 </html>

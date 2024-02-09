@@ -148,3 +148,7 @@ nav:has(a:nth-child(3):hover) + h1:after {
     transform: scale(2);
     border-width: calc(2rem * .5);
 }
+
+html:has(body[isTouch="true"]) {
+    font-size: 7px;
+}
